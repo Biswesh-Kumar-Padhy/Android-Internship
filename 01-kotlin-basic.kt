@@ -23,7 +23,7 @@ fun main() {
         5 -> "Friday"
         6 -> "Saturday"
         7 -> "Sunday"
-        else -> "Invalid day"
+        else -> "Invalid day" 
     }
     println(dayName)
     
