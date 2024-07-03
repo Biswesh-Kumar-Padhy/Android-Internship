@@ -67,11 +67,11 @@ fun sortPeople(persons: List<Person>): List<Person> {
 }
 //fun main() {
 //    val persons = listOf(
-//        Person("Alice", 30),
-//        Person("Bob", 25),
-//        Person("Charlie", 25),
-//        Person("David", 28),
-//        Person("Eve", 30)
+//        Person("Biswesh", 20),
+//        Person("Biswajit", 25),
+//        Person("Harsh", 25),
+//        Person("Rahul", 28),
+//        Person("Bibhuti", 20)
 //    )
 //    val sort = sortPeople(persons)
 //    sort.forEach {
