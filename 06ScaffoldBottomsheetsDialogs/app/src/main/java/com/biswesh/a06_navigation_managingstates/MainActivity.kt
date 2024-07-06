@@ -98,21 +98,43 @@ fun ScaffoldExample() {
             Button(onClick = { showBottomSheet = true }) {
                 Text(text = "Show Bottom Sheet")
             }
+            if (showBottomSheet) {
+                ModalBottomSheet(
+                    onDismissRequest = { showBottomSheet = false },
+                    sheetState = sheetState,
+                    containerColor = MaterialTheme.colorScheme.error
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(10.dp)
+                            .fillMaxSize()
+                    ) {
+                        Text(text = "Hi, my name is Biswesh")
+                    }
+                }
+            }
             //Alert Dialog
             Button(onClick = { showAlert = true }) {
                 Text(text = "Show Alert")
             }
+            if (showAlert) {
+                AlertDialogExample(onDismissRequest = { showAlert = false }, onConfirmation = {
+                    showAlert = false
+                    println("Confirmed")
+                })
+            }
             //Text Field
-            Column(modifier = Modifier.padding(20.dp),
+            Column(
+                modifier = Modifier.padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center) {
+                verticalArrangement = Arrangement.Center
+            ) {
 
                 var text = ""
                 TextField(value = text,
-                    onValueChange = {text = it},
-                    label = {Text("Username: ")}
-                )
-                Text (text)
+                    onValueChange = { text = it },
+                    label = { Text("Username: ") })
+                Text(text)
             }
             Row {
                 //Lazy Column
@@ -151,44 +173,35 @@ fun ScaffoldExample() {
                 }
             }
         }
-
-
-        if (showAlert) {
-            AlertDialogExample()
-        }
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = { showBottomSheet = false },
-                sheetState = sheetState,
-                containerColor = MaterialTheme.colorScheme.error
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .fillMaxSize()
-                ) {
-                    Text(text = "Hi, my name is Biswesh")
-                }
-            }
-        }
-
-
     }
 }
 
 
 @Composable
-fun AlertDialogExample() {
-    var showAlert by remember {
-        mutableStateOf(true)
-    }
-    AlertDialog(icon = { Icon(Icons.Filled.Done, contentDescription = "Done") }, title = {
+fun AlertDialogExample(
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit,
+) {
+
+    AlertDialog(icon = {
+        Icon(Icons.Filled.Done, contentDescription = "Done")
+    }, title = {
         Text(text = "Emergency")
     }, text = {
-        Text(text = "Jetpack course is updating its library with more UI elements")
-    }, onDismissRequest = { showAlert = false }, confirmButton = {
-        TextButton(onClick = { println("Clicked on this text Button") }) {
+        Text(text = "Jetpack course is updating its library")
+    }, onDismissRequest = {
+        onDismissRequest()
+    }, confirmButton = {
+        TextButton(onClick = {
+            onConfirmation()
+        }) {
             Text(text = "Alright")
+        }
+    }, dismissButton = {
+        TextButton(onClick = {
+            onDismissRequest()
+        }) {
+            Text("Dismiss")
         }
     })
 }
@@ -197,7 +210,7 @@ fun AlertDialogExample() {
 @Composable
 fun AlertDialogExamplePreview() {
     _06NavigationManagingStatesTheme {
-        AlertDialogExample()
+//        AlertDialogExample()
     }
 }
 
